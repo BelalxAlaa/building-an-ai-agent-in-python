@@ -16,14 +16,13 @@ def run_python_file(working_directory, file_path, args=[]):
 
     try:
         completed_process = subprocess.run(
-            ["python", abs_file_path, *args], timeout=30, capture_output=True
+            ["python", abs_file_path, *args], timeout=30, capture_output=True, text=True
         )
-        completed_process.stdout = completed_process.stdout.decode() 
-        if completed_process.stdout == "":
+        if all((completed_process.stdout,completed_process.stderr)) :
             return "No output produced."
 
         formatted_output = f"""STDOUT:\n{completed_process.stdout}
-STDERR:\n{completed_process.stderr.decode()}
+STDERR:\n{completed_process.stderr}
 {f"Process exited with code {completed_process.returncode}" if completed_process.returncode != 0 else ""}
 """
 
@@ -34,4 +33,5 @@ STDERR:\n{completed_process.stderr.decode()}
 
 
 if __name__ == "__main__":
-    run_python_file("calculator", "f.py")
+    # run_python_file("calculator", "f.py")
+    run_python_file("calculator", "tests.py")
