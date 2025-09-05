@@ -11,3 +11,4 @@ wheels/
 
 # Dot Env File
 .env
+.vscode
